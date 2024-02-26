@@ -1,0 +1,17 @@
+{
+    "defaultConnection" : "DefaultConnection",
+    "listConnection": {
+        "DefaultConnection": {
+            "datasource":"jdbc:postgresql://localhost:5432/cin_banque",
+            "username":"postgres",
+            "password":"layah",
+            "databaseType":"POSTGRESQL"
+        },
+        "OtherConnection": {
+            "datasource":"jdbc:postgresql://localhost:5432/dentisterie",
+            "username":"postgers",
+            "password":"layah",
+            "databaseType":"POSTGRESQL"
+        }
+    }
+}
