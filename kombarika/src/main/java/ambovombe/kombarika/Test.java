@@ -28,7 +28,7 @@ public class Test {
         String controller = "Controllers";
         String repository = "Context";
         String view = "Views";
-        String viewType = "ajax";
+        String viewType = "react";
         String url = "http://localhost:5241/api";
         try{
             // String[] tables = {"district","region"};
