@@ -2,7 +2,7 @@
     "defaultConnection" : "DefaultConnection",
     "listConnection": {
         "DefaultConnection": {
-            "datasource":"jdbc:postgresql://localhost:5432/poketra",
+            "datasource":"jdbc:postgresql://localhost:5432/scaf",
             "username":"postgres",
             "password":"admin",
             "databaseType":"POSTGRESQL"

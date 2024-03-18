@@ -23,13 +23,13 @@ public class Test {
         CodeGenerator codeGenerator = new CodeGenerator();
         String path = "./";
         String framework = "csharp:dotnet";
-        String packageName = "First_Test";
+        String packageName = "Test";
         String entity = "Models";
         String controller = "Controllers";
         String repository = "Context";
-        String view = "Views";
+        String view = "View";
         String viewType = "react";
-        String url = "http://localhost:5241/api";
+        String url = "http://localhost:5106/api";
         try{
             // String[] tables = {"district","region"};
             // DbConnection dbConnection = codeGenerator.getDbConnection();
