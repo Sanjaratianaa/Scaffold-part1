@@ -135,6 +135,12 @@ public class Controller{
     }
 
     public String getControllerField(String table, String repository){
+        if(repository.contains(".")){
+            String[] temp = repository.split("\\.");
+            repository = temp[temp.length - 1];
+            // System.out.println(repository);
+        }
+        
         String res = "";
         if(!this.getControllerProperty().getField().equals("") && !this.getControllerProperty().getAnnotationField().equals("")){
             res += "\t"
@@ -177,11 +183,19 @@ public class Controller{
         return res;
     }
 
-    public String getConstructor(String table) throws Exception{
+    public String getConstructor(String table, String repository) throws Exception{
         String res = "";
+        
+        if(repository.contains(".")){
+            String[] temp = repository.split("\\.");
+            repository = temp[temp.length - 1];
+            // System.out.println(repository);
+        }
+
         if(!this.getControllerProperty().getConstructor().equals("")){
             res = this.getControllerProperty().getConstructor()
-                .replace("#name#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)));
+                .replace("#name#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)))
+                .replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(repository)));
         }
         return res;
     }
@@ -195,7 +209,7 @@ public class Controller{
                 .replace("#open-bracket#", languageProperties.getOpenBracket())
                 .replace("#close-bracket#", languageProperties.getCloseBracket())
                 .replace("#fields#", getControllerField(table, repository))
-                .replace("#constructors#", getConstructor(table))
+                .replace("#constructors#", getConstructor(table, repository))
                 .replace("#methods#", getCrudMethods(columns, foreignKeys, table))
                 .replace("#encapsulation#", "");
         return res;
