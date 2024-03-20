@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 [Route("api/[[poketra]]")]
 public class PoketraController : Controller {
 
-	private readonly Test.ContextDbContext _context;
+	private readonly ContextDbContext _context;
 	private readonly ILogger<PoketraController> _logger;
 
 
@@ -35,12 +35,12 @@ public class PoketraController : Controller {
 		return Ok();
 	}
 	[HttpGet]
-	public ActionResult<IEnumerable<Poketra>> findAll(){
+	public async Task<ActionResult<IEnumerable<Poketra>>> findAll(){
 	 	var all = await _context.Poketra.ToListAsync();
 			return Ok(all);
 	}
 
-	public PoketraController(PoketraDbContext context) { _context = context; }
+	public PoketraController(ContextDbContext context) { _context = context; }
 
 
 

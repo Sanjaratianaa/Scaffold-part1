@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 [Route("api/[[personne]]")]
 public class PersonneController : Controller {
 
-	private readonly Test.ContextDbContext _context;
+	private readonly ContextDbContext _context;
 	private readonly ILogger<PersonneController> _logger;
 
 
@@ -35,12 +35,12 @@ public class PersonneController : Controller {
 		return Ok();
 	}
 	[HttpGet]
-	public ActionResult<IEnumerable<Personne>> findAll(){
+	public async Task<ActionResult<IEnumerable<Personne>>> findAll(){
 	 	var all = await _context.Personne.ToListAsync();
 			return Ok(all);
 	}
 
-	public PersonneController(PersonneDbContext context) { _context = context; }
+	public PersonneController(ContextDbContext context) { _context = context; }
 
 
 

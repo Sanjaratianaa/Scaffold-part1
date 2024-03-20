@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 [Route("api/[[pannier]]")]
 public class PannierController : Controller {
 
-	private readonly Test.ContextDbContext _context;
+	private readonly ContextDbContext _context;
 	private readonly ILogger<PannierController> _logger;
 
 
@@ -35,12 +35,12 @@ public class PannierController : Controller {
 		return Ok();
 	}
 	[HttpGet]
-	public ActionResult<IEnumerable<Pannier>> findAll(){
-	 	var all = await _context.Pannier.ToListAsync();
+	public async Task<ActionResult<IEnumerable<Pannier>>> findAll(){
+	 	var all = await _context.Pannier.Include(l => l.poketra).Include(l => l.personne).ToListAsync();
 			return Ok(all);
 	}
 
-	public PannierController(PannierDbContext context) { _context = context; }
+	public PannierController(ContextDbContext context) { _context = context; }
 
 
 

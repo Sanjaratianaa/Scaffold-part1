@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
-import Modal from 'react-bootstrap/Modal';
+import {Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
-function Poketra(){
-  const url = 'http://localhost:5106/api';
+function #entity#(){
+  const url = '#url#';
   
   const [loading, setLoading] = useState(true);
   
@@ -21,13 +21,11 @@ function Poketra(){
   const [selectedItem, setSelectedItem] = useState(null);
   const handleSelectItem = (itemKey) => {
     handleShow2();
-    const itemDetails = [poketra].find(item => item.id === itemKey);
+    const itemDetails = #path#.find(item => item.#id# === itemKey);
     setSelectedItem(itemDetails);
   };
 
-	const [poketra, setPoketra] = useState([]);
-	
-	
+#values#
 
 //////// SAVE
   const handleSaveSubmit = async (event) => {
@@ -45,7 +43,7 @@ function Poketra(){
       }
   
       try {
-        const response = await fetch(url + '[poketra]', {
+        const response = await fetch(url + '#path#', {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
@@ -79,7 +77,7 @@ function Poketra(){
         }
       }
       try {
-        const response = await fetch(url + '[poketra]', {
+        const response = await fetch(url + '#path#', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -102,7 +100,7 @@ function Poketra(){
   const handleDeleteClick = async (item) => {
     try {
       console.log(item);
-      const response = await fetch(url + '[poketra]', {
+      const response = await fetch(url + '#path#', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -119,38 +117,9 @@ function Poketra(){
     }
   };
 
-	const handleInputPrixChange = (event) => {
-		setSelectedItem({ ...selectedItem, prix: event.target.value });
-	};
-	
-	const handleInputIdChange = (event) => {
-		setSelectedItem({ ...selectedItem, id: event.target.value });
-	};
-	
-	const handleInputNomChange = (event) => {
-		setSelectedItem({ ...selectedItem, nom: event.target.value });
-	};
-	
-	
+#handleInputSelectChange#
 
-	useEffect(() => {
-		const getPoketra = async () => {
-			try {
-				const response = await fetch(url + 'poketra');
-					if (!response.ok) {
-						throw new Error('Network response was not ok');
-					};
-				const data = await response.json();
-				setPoketra(data);
-			} catch (error) {
-				setError(error);
-			} finally {
-				setLoading(false);
-			}
-		};
-		getPoketra();
-	}, []);
-	
+#getValues#
 
   return (
     <>
@@ -159,25 +128,17 @@ function Poketra(){
               <div className="col" >   
                 <div className="row">
                   <Button variant="primary" onClick={handleShow}>
-                      Add Poketra
+                      Add #entity#
                   </Button>
                 </div>    
 
                   <Modal show={show} onHide={handleClose}>
                       <Modal.Header closeButton>
-                      <Modal.Title>Add Poketra</Modal.Title>
+                      <Modal.Title>Add #entity#</Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
                           <form action="" method="" id="insert" onSubmit={handleSaveSubmit}>
-	<div className="mb-3"> 
-	 	<label className="form-label">Prix</label> 
-	 	<input className="form-control" type="number" name="prix" />
-	</div>
-	<div className="mb-3"> 
-	 	<label className="form-label">Nom</label> 
-	 	<input className="form-control" type="text" name="nom" />
-	</div>
-	
+#inputInsert#
                               <div className="mb-3">
                                 <Button variant="primary" type= "submit" >
                                   Save Changes
@@ -195,28 +156,22 @@ function Poketra(){
               <table className="table">
                   <thead id="table-head">
                       <tr>
-			<th> Prix </th>
-			<th> Id </th>
-			<th> Nom </th>
-
+#header#
                           <th></th>
                           <th></th>
                       </tr>
                   </thead>    
                   <tbody id="table-body">
-                      {[poketra].map((item) => (
-                              <tr key={item.id}>
-		<td>{item.prix}</td>
-		<td>{item.id}</td>
-		<td>{item.nom}</td>
-
+                      {#path#.map((item) => (
+                              <tr key={item.#id#}>
+#tableValue#
                               <td>
-                                  <Button variant="danger" key={item.id} onClick={() => handleDeleteClick(item)}>
+                                  <Button variant="danger" key={item.#id#} onClick={() => handleDeleteClick(item)}>
                                       Delete
                                   </Button>
                               </td>   
                               <td>
-                                  <Button variant="warning" key={item.id} onClick={() => handleSelectItem(item.id)}>
+                                  <Button variant="warning" key={item.#id#} onClick={() => handleSelectItem(item.#id#)}>
                                       Update
                                   </Button>
                               </td>
@@ -226,23 +181,11 @@ function Poketra(){
               </table>
               <Modal show={show2} onHide={handleClose2}>
                   <Modal.Header closeButton>
-                      <Modal.Title>Update Poketra</Modal.Title>
+                      <Modal.Title>Update #entity#</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>    
                       <form action="" method="" id="update" onSubmit={handleUpdateSubmit}>
-	<div className="mb-3"> 
-	 	<label className="form-label">Prix</label> 
-	 	<input className="form-control" type="number" name="prix" onChange={handleInputPrixChange} value={selectedItem ? selectedItem.prix:''} />
-	</div>
-	<div className="mb-3"> 
-	 	<label className="form-label"></label> 
-	 	<input className="form-control" type="hidden" name="id" onChange={handleInputIdChange} value={selectedItem ? selectedItem.id:''} />
-	</div>
-	<div className="mb-3"> 
-	 	<label className="form-label">Nom</label> 
-	 	<input className="form-control" type="text" name="nom" onChange={handleInputNomChange} value={selectedItem ? selectedItem.nom:''} />
-	</div>
-	
+#inputUpdate#
                           <div className="mb-3">
                             <Button variant="warning" type= "submit" >
                               Save Changes
@@ -260,4 +203,4 @@ function Poketra(){
   )
 }
 
-export default Poketra;
+export default #entity#;

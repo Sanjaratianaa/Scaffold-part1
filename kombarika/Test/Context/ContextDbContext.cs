@@ -14,7 +14,7 @@ public class ContextDbContext : DbContext {
 
 
 
-	public ContextDbContext(){}
+	// public ContextDbContext(){}
 	public ContextDbContext(DbContextOptions<ContextDbContext> options): base(options)
 {}
 

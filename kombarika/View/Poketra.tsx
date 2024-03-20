@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
-import Modal from 'react-bootstrap/Modal';
+import {Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
-function Personne(){
+function Poketra(){
   const url = 'http://localhost:5106/api';
   
   const [loading, setLoading] = useState(true);
@@ -21,11 +21,11 @@ function Personne(){
   const [selectedItem, setSelectedItem] = useState(null);
   const handleSelectItem = (itemKey) => {
     handleShow2();
-    const itemDetails = [personne].find(item => item.id === itemKey);
+    const itemDetails = [poketra].find(item => item.id === itemKey);
     setSelectedItem(itemDetails);
   };
 
-	const [personne, setPersonne] = useState([]);
+	const [poketra, setPoketra] = useState([]);
 	
 	
 
@@ -45,7 +45,7 @@ function Personne(){
       }
   
       try {
-        const response = await fetch(url + '[personne]', {
+        const response = await fetch(url + '[poketra]', {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
@@ -79,7 +79,7 @@ function Personne(){
         }
       }
       try {
-        const response = await fetch(url + '[personne]', {
+        const response = await fetch(url + '[poketra]', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -102,7 +102,7 @@ function Personne(){
   const handleDeleteClick = async (item) => {
     try {
       console.log(item);
-      const response = await fetch(url + '[personne]', {
+      const response = await fetch(url + '[poketra]', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -119,8 +119,8 @@ function Personne(){
     }
   };
 
-	const handleInputAdresseChange = (event) => {
-		setSelectedItem({ ...selectedItem, adresse: event.target.value });
+	const handleInputPrixChange = (event) => {
+		setSelectedItem({ ...selectedItem, prix: event.target.value });
 	};
 	
 	const handleInputIdChange = (event) => {
@@ -131,32 +131,24 @@ function Personne(){
 		setSelectedItem({ ...selectedItem, nom: event.target.value });
 	};
 	
-	const handleInputPrenomChange = (event) => {
-		setSelectedItem({ ...selectedItem, prenom: event.target.value });
-	};
-	
-	const handleInputDtnChange = (event) => {
-		setSelectedItem({ ...selectedItem, dtn: event.target.value });
-	};
-	
 	
 
 	useEffect(() => {
-		const getPersonne = async () => {
+		const getPoketra = async () => {
 			try {
-				const response = await fetch(url + 'personne');
+				const response = await fetch(url + 'poketra');
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					};
 				const data = await response.json();
-				setPersonne(data);
+				setPoketra(data);
 			} catch (error) {
 				setError(error);
 			} finally {
 				setLoading(false);
 			}
 		};
-		getPersonne();
+		getPoketra();
 	}, []);
 	
 
@@ -167,31 +159,23 @@ function Personne(){
               <div className="col" >   
                 <div className="row">
                   <Button variant="primary" onClick={handleShow}>
-                      Add Personne
+                      Add Poketra
                   </Button>
                 </div>    
 
                   <Modal show={show} onHide={handleClose}>
                       <Modal.Header closeButton>
-                      <Modal.Title>Add Personne</Modal.Title>
+                      <Modal.Title>Add Poketra</Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
                           <form action="" method="" id="insert" onSubmit={handleSaveSubmit}>
 	<div className="mb-3"> 
-	 	<label className="form-label">Adresse</label> 
-	 	<input className="form-control" type="text" name="adresse" />
+	 	<label className="form-label">Prix</label> 
+	 	<input className="form-control" type="number" name="prix" />
 	</div>
 	<div className="mb-3"> 
 	 	<label className="form-label">Nom</label> 
 	 	<input className="form-control" type="text" name="nom" />
-	</div>
-	<div className="mb-3"> 
-	 	<label className="form-label">Prenom</label> 
-	 	<input className="form-control" type="text" name="prenom" />
-	</div>
-	<div className="mb-3"> 
-	 	<label className="form-label">Dtn</label> 
-	 	<input className="form-control" type="Date" name="dtn" />
 	</div>
 	
                               <div className="mb-3">
@@ -211,24 +195,20 @@ function Personne(){
               <table className="table">
                   <thead id="table-head">
                       <tr>
-			<th> Adresse </th>
+			<th> Prix </th>
 			<th> Id </th>
 			<th> Nom </th>
-			<th> Prenom </th>
-			<th> Dtn </th>
 
                           <th></th>
                           <th></th>
                       </tr>
                   </thead>    
                   <tbody id="table-body">
-                      {[personne].map((item) => (
+                      {[poketra].map((item) => (
                               <tr key={item.id}>
-		<td>{item.adresse}</td>
+		<td>{item.prix}</td>
 		<td>{item.id}</td>
 		<td>{item.nom}</td>
-		<td>{item.prenom}</td>
-		<td>{item.dtn}</td>
 
                               <td>
                                   <Button variant="danger" key={item.id} onClick={() => handleDeleteClick(item)}>
@@ -246,13 +226,13 @@ function Personne(){
               </table>
               <Modal show={show2} onHide={handleClose2}>
                   <Modal.Header closeButton>
-                      <Modal.Title>Update Personne</Modal.Title>
+                      <Modal.Title>Update Poketra</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>    
                       <form action="" method="" id="update" onSubmit={handleUpdateSubmit}>
 	<div className="mb-3"> 
-	 	<label className="form-label">Adresse</label> 
-	 	<input className="form-control" type="text" name="adresse" onChange={handleInputAdresseChange} value={selectedItem ? selectedItem.adresse:''} />
+	 	<label className="form-label">Prix</label> 
+	 	<input className="form-control" type="number" name="prix" onChange={handleInputPrixChange} value={selectedItem ? selectedItem.prix:''} />
 	</div>
 	<div className="mb-3"> 
 	 	<label className="form-label"></label> 
@@ -261,14 +241,6 @@ function Personne(){
 	<div className="mb-3"> 
 	 	<label className="form-label">Nom</label> 
 	 	<input className="form-control" type="text" name="nom" onChange={handleInputNomChange} value={selectedItem ? selectedItem.nom:''} />
-	</div>
-	<div className="mb-3"> 
-	 	<label className="form-label">Prenom</label> 
-	 	<input className="form-control" type="text" name="prenom" onChange={handleInputPrenomChange} value={selectedItem ? selectedItem.prenom:''} />
-	</div>
-	<div className="mb-3"> 
-	 	<label className="form-label">Dtn</label> 
-	 	<input className="form-control" type="Date" name="dtn" onChange={handleInputDtnChange} value={selectedItem ? selectedItem.dtn:''} />
 	</div>
 	
                           <div className="mb-3">
@@ -288,4 +260,4 @@ function Personne(){
   )
 }
 
-export default Personne;
+export default Poketra;

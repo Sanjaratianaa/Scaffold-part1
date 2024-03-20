@@ -16,6 +16,7 @@ public class FrameworkProperties {
     String repository;
     boolean isOneRepository;
     Imports imports;
+    String listSyntax;
     AnnotationProperty annotationProperty;
     CrudMethod crudMethod;
     ControllerProperty controllerProperty;

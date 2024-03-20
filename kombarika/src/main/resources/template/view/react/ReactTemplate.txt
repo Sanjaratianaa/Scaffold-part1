@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import Modal from 'react-bootstrap/Modal';
+import {Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
 function #entity#(){
@@ -19,6 +19,7 @@ function #entity#(){
   
   const [error, setError] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+   const [isOpen, setIsOpen] = useState(false);
   const handleSelectItem = (itemKey) => {
     handleShow2();
     const itemDetails = #path#.find(item => item.#id# === itemKey);
@@ -123,7 +124,7 @@ function #entity#(){
 
   return (
     <>
-      <div className="container">
+      <IonContent className="container">
           <div className="row justify-content-end">
               <div className="col" >   
                 <div className="row">
@@ -198,7 +199,7 @@ function #entity#(){
                   </Modal.Footer>
               </Modal>
           </div>
-      </div>
+      </IonContent>
     </>
   )
 }
