@@ -20,6 +20,7 @@
                     "template" : "Template.code",
                     "repository": "Template.code",
                     "isOneRepository":"true",
+                    "listSyntax": "IEnumerable<?>",
                     "imports": {
                         "controller":[
                             "System.Diagnostics",
@@ -62,20 +63,25 @@
                         "update": "var temp = #object#;\n_context.SaveChanges();\nreturn Ok();",
                         "save": "_context.?.Add(#object#);\n_context.SaveChanges();\nreturn Ok();"
                     },
-                    "controllerProperty" : {
+                    "controllerProperty": {
                         "path": "Route(\"api/[[?]]\")",
                         "get": "HttpGet",
                         "post": "HttpPost",
                         "put": "HttpPut",
                         "delete": "HttpDelete",
+                        "name": "Controller",
+                        "includedTerms": ".Include(l => l.#values#)",
+                        "pathSyntax": "[?]",
                         "classSyntax": "?Controller : Controller",
                         "returnType": "ActionResult<?>",
-                        "field": "private readonly ?DbContext _context;\n\tprivate readonly ILogger<#table#Controller> _logger;",
+                        "returnTypeDelete": "void",
+                        "field": "private readonly #name#DbContext _context;\n\tprivate readonly ILogger<?Controller> _logger;",
                         "annotationField": "",
-                        "annotationMethodParameter":"",
-                        "annotationArgumentParameterFormData":"FromBody",
-                        "annotationArgumentParameterLink":"",
-                        "constructor": "\tpublic #name#Controller(#name#DbContext context) { _context = context; }"
+                        "annotationMethodParameter": "",
+                        "annotationArgumentParameterFormData": "FromBody",
+                        "annotationArgumentParameterLink": "",
+                        "constructor": "\tpublic #name#Controller(?DbContext context) { _context = context; }",
+                        "findAllAsync": "async Task<?>"
                     },
                     "repositoryProperty" : {
                         "name":"DbContext",

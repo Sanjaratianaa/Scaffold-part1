@@ -211,6 +211,8 @@ public class CodeGenerator {
         controller.setControllerProperty(frameworkProperties.getControllerProperty());
         controller.setCrudMethod(frameworkProperties.getCrudMethod());
         controller.setImports(frameworkProperties.getImports());
+        controller.setFrameworkProperties(frameworkProperties);
+        
         controller.setLanguageProperties(languageProperties);
         return controller.generateController(template, table, packageName, repository, entity, framework, getDbConnection());
     }

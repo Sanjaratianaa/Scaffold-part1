@@ -2,15 +2,15 @@
     "defaultConnection" : "DefaultConnection",
     "listConnection": {
         "DefaultConnection": {
-            "datasource":"jdbc:postgresql://localhost:5432/cin_banque",
+            "datasource":"jdbc:postgresql://localhost:5432/scaf",
             "username":"postgres",
-            "password":"layah",
+            "password":"admin",
             "databaseType":"POSTGRESQL"
         },
         "OtherConnection": {
-            "datasource":"jdbc:postgresql://localhost:5432/dentisterie",
+            "datasource":"jdbc:postgresql://localhost:5432/dentiste",
             "username":"postgers",
-            "password":"layah",
+            "password":"admin",
             "databaseType":"POSTGRESQL"
         }
     }

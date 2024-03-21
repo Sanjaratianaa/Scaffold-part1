@@ -110,10 +110,10 @@ public class View {
         for (Map.Entry<String, String> set : columns.entrySet()) {
             if(foreignKeys.get(set.getKey()) != null){
                 res += "\t\t" + template
-                .replace("#value#", ObjectUtility.formatToCamelCase(foreignKeys.get(set.getKey())) + "." + ObjectUtility.formatToCamelCase(attribute)) + "\n";                
+                .replace("#values#", ObjectUtility.formatToCamelCase(foreignKeys.get(set.getKey())) + "." + ObjectUtility.formatToCamelCase(attribute)) + "\n";                
             }else{
                 res += "\t\t" + template
-                .replace("#value#", ObjectUtility.formatToCamelCase(set.getKey())) + "\n";
+                .replace("#values#", ObjectUtility.formatToCamelCase(set.getKey())) + "\n";
             }
         }
         return res;
