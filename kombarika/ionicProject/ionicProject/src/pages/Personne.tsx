@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap'
+import { IonContent, IonLabel, IonInput, IonTitle } from '@ionic/react';
 
 function Personne() {
   // const url = 'https://e1l353.api.infobip.com/people/2/';
@@ -175,39 +176,43 @@ function Personne() {
               </Button>
             </div>
 
-            <Modal show={show} onHide={handleClose}>
+            {/* <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Add Personne</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
-                <form action="" method="" id="insert" onSubmit={handleSaveSubmit}>
-                  <div className="mb-3">
-                    <label className="form-label">Adresse</label>
-                    <input className="form-control" type="text" name="adresse" />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Nom</label>
-                    <input className="form-control" type="text" name="nom" />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Prenom</label>
-                    <input className="form-control" type="text" name="prenom" />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Dtn</label>
-                    <input className="form-control" type="Date" name="dtn" />
-                  </div>
+              <Modal.Body> */}
+              <div>
+              {/* <IonContent className="ion-content"> */}
+                  <form action="" method="" id="insert" onSubmit={handleSaveSubmit}>
+                    <div className="mb-3">
+                      <IonLabel className="form-label">Adresse</IonLabel>
+                      <input className="form-control" type="text" name="adresse" />
+                    </div>
+                    <div className="mb-3">
+                      <IonLabel className="form-label">Nom</IonLabel>
+                      <input className="form-control" type="text" name="nom" />
+                    </div>
+                    <div className="mb-3">
+                      <IonLabel className="form-label">Prenom</IonLabel>
+                      <input className="form-control" type="text" name="prenom" />
+                    </div>
+                    <div className="mb-3">
+                      <IonLabel className="form-label">Dtn</IonLabel>
+                      <input className="form-control" type="Date" name="dtn" />
+                    </div>
 
-                  <div className="mb-3">
-                    <Button variant="primary" type="submit" >
-                      Save Changes
-                    </Button>
-                  </div>
-                </form>
-              </Modal.Body>
+                    <div className="mb-3">
+                      <Button variant="primary" type="submit" >
+                        Save Changes
+                      </Button>
+                    </div>
+                  </form>
+                {/* </IonContent> */}
+              {/* </Modal.Body>
               <Modal.Footer>
               </Modal.Footer>
-            </Modal>
+            </Modal> */}
+            </div>
           </div>
 
         </div>
@@ -253,6 +258,7 @@ function Personne() {
               <Modal.Title>Update Personne</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+            {/* <div> */}
               <form action="" method="" id="update" onSubmit={handleUpdateSubmit}>
                 <div className="mb-3">
                   <label className="form-label">Adresse</label>
@@ -286,6 +292,7 @@ function Personne() {
 
             </Modal.Footer>
           </Modal>
+          {/* </div> */}
         </div>
       </div>
     </>
