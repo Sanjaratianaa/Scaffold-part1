@@ -49,8 +49,7 @@
     "vitest": "^0.34.6"
   },
   "description": "An Ionic project",
-  "config":{
+  "config": {
     "ionic_sass": "./sass.config.js"
   }
-
 }
