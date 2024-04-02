@@ -8,7 +8,7 @@ var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ContextDbContext>( options => options.UseNpgsql(
-    "Server=127.0.0.1;Port=5432;Database=scaf;User Id=postgres;Password=postgres;"
+    "Server=127.0.0.1;Port=5432;Database=dentisterie;User Id=postgres;Password=postgres;"
 )  );
 
 builder.Services.AddCors(options =>
@@ -17,7 +17,8 @@ builder.Services.AddCors(options =>
                       policy  =>
                       {
                           policy.WithOrigins("*").AllowAnyHeader()
-                                                  .AllowAnyMethod();    
+                                                  .AllowAnyMethod()
+                                                  .WithExposedHeaders("X-Total-Count");    
                       });
 });
 

@@ -2,13 +2,13 @@
     "defaultConnection" : "DefaultConnection",
     "listConnection": {
         "DefaultConnection": {
-            "datasource":"jdbc:postgresql://localhost:5432/scaf",
+            "datasource":"jdbc:postgresql://localhost:5432/dentisterie",
             "username":"postgres",
-            "password":"admin",
+            "password":"postgres",
             "databaseType":"POSTGRESQL"
         },
         "OtherConnection": {
-            "datasource":"jdbc:postgresql://localhost:5432/dentiste",
+            "datasource":"jdbc:postgresql://localhost:5432/dentisterie",
             "username":"postgers",
             "password":"admin",
             "databaseType":"POSTGRESQL"

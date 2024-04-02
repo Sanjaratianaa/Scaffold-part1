@@ -125,6 +125,13 @@ public class CodeGenerator {
         repository.setTypeMapping(typeMapping);
         return repository.generateRepository(tables, context, packageName, entityPackage, primaryKeysType);
     }
+
+    public String buildRouter(String[] tables, String viewType) throws Exception{
+        View view = new View();
+        view.setViewProperties(this.getViewDetails().getViews().get(viewType));
+        view.setFrameworkProperties(this.getFrameworkProperties());
+        return view.generateRoutes(tables);
+    }
     
 
     public void generateRepository(
@@ -153,6 +160,14 @@ public class CodeGenerator {
         String language = splittedLang[0]; String framework = splittedLang[1];
         String repository = buildRepository(tables, context, packageName, entityPackage, language, framework);
         generateRepositoryFile(path, context, packageName, language, framework, repository);
+    }
+
+    public void generateRouter(String path, String viewType, String[] tables) throws Exception{
+        String route = this.buildRouter(tables, viewType);
+        if(route.equals(""))
+            return;
+        String filename = GeneratorService.getFileName(this.getViewDetails().getViews().get(viewType).getRouteFilename(), this.getViewDetails().getViews().get(viewType).getRouteFileExtension());
+        FileUtility.generateFile(path, filename, route);
     }
 
     public void generateView(
@@ -291,6 +306,7 @@ public class CodeGenerator {
         for (String table : tables) {
             generateView(path, table, view, viewType, url, framework); 
         }
+        generateRouter(path, viewType, tables);
     }
 
     public void generateAll(

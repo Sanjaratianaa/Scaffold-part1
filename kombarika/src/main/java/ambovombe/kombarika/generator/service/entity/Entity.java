@@ -88,10 +88,12 @@ public class Entity {
                     res += "\t"
                             + this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getAnnotationProperty().getConstraints().getForeignKey().getManyToOne())+ "\n";
                 }
+                // System.out.println("Temp is ==> " + set.getKey() );
                 res += "\t"
                     + this.getLanguageProperties().getFieldSyntax()
                         .replace("Type", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(temp)))
-                        .replace("field", ObjectUtility.formatToCamelCase(temp))
+                        .replace("field", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(set.getKey())))
+                        // .replace("field", ObjectUtility.formatToCamelCase(set.getKey()))
                     + "\n";
                 continue;
             }

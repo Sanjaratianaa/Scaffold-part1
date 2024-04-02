@@ -87,12 +87,13 @@ public class Controller{
     public String getIncludeTerms(HashMap<String, String> columns, HashMap<String, String> foreignKeys){
         StringBuilder res = new StringBuilder("");
         if(foreignKeys.size() > 0){ 
-            res.append(".Include(l => l.");
-
+            
             for (Map.Entry<String, String> set : columns.entrySet()) {
                 String temp = foreignKeys.get(set.getKey());
                 if(temp != null){
-                    String navigationProperty = ObjectUtility.formatToCamelCase(temp);
+                    // String navigationProperty = ObjectUtility.formatToCamelCase(set.getKey());
+                    String navigationProperty = ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(set.getKey()));
+                    res.append(".Include(l => l.");
                     res.append(navigationProperty).append(")");
                     continue;
                 }
@@ -133,12 +134,12 @@ public class Controller{
                 .replace("#name#", "findAll")
                 .replace("#type#", this.getControllerProperty().getFindAllAsync()
                     .replace("?", this.getControllerProperty().getReturnType().replace("?", this.getFrameworkProperties().getListSyntax().replace("?",ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))))
-                .replace("#arg#", "")
+                .replace("#arg#", " int limit = 10, int page = 1")
                 .replace("#body#", body);
 
         return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax().replace("?", 
             this.getControllerProperty().getGet()
-                .replace("?", ObjectUtility.formatToCamelCase(table))
+                .replace("?", ObjectUtility.formatToCamelCase(table)).concat("(\"{page?}\")")
             ) + "\n" + function);
     }
 
@@ -210,7 +211,7 @@ public class Controller{
             for (Map.Entry<String,String> set: columns.entrySet()) {
                 String temp = foreignKeys.get(set.getKey());
                 if(temp != null){
-                    values += ObjectUtility.formatToCamelCase(temp) + ".";
+                    values += ObjectUtility.formatToCamelCase(set.getKey()) + ".";
                 }
             }
             values = values.substring(0, values.lastIndexOf('.'));

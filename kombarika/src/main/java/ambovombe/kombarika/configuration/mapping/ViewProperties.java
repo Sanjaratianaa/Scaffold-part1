@@ -14,8 +14,15 @@ public class ViewProperties {
     String option;
     String selectUpdate;
     String optionUpdate;
+    String routeTemplate;
+    String routeFilename;
+    String routeFileExtension;
+    String routeSyntax;
+    String routeSeparator;
+    String routeImportSyntax;
     String handleInputChange;
     String handleSelectChange;
+    String ionicTabSyntax;
     String values;
     String tableValue;
     String fetch;
