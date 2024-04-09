@@ -24,6 +24,7 @@ public class Controller{
     AnnotationProperty annotationProperty;
     DbConnection dbConnection;
     Imports imports;
+    boolean isAuthenticationEnabled = false;
 
     /**
      * Generate the function that make the insert to the database
@@ -222,15 +223,24 @@ public class Controller{
 
     public String getControllerClass(String table, String framework){
         String res = "";
+
+        if( this.isAuthenticationEnabled() ){
+            res += this.getLanguageProperties().getAnnotationSyntax().replace(
+                "?",  this.getAnnotationProperty().getAuthentication() ) + "\n";
+        }
+
         res += this.getLanguageProperties().getAnnotationSyntax()
-                .replace("?", this.getAnnotationProperty().getController()) + "\n"
-                + this.getLanguageProperties().getAnnotationSyntax()
+                .replace("?", this.getAnnotationProperty().getController()) + "\n";
+
+        res += this.getLanguageProperties().getAnnotationSyntax()
                 .replace("?", this.getControllerProperty().getPath())
-                .replace("?", ObjectUtility.formatToCamelCase(table)) + "\n"
-                + this.getLanguageProperties().getClassSyntax() + " "
+                .replace("?", ObjectUtility.formatToCamelCase(table)) + "\n";
+
+        res += this.getLanguageProperties().getClassSyntax() + " "
                 + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(
                     this.getLanguageProperties().getFrameworks().get(framework).getControllerProperty().getClassSyntax()).replace("?", ObjectUtility.formatToCamelCase(table))
                 );
+        // System.out.println( "INONA NO ATOOOO " + res );
         return res;
     }
 

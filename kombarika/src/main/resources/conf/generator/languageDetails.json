@@ -28,6 +28,7 @@
                             "packageName",
                             "entity",
                             "Microsoft.EntityFrameworkCore",
+                            "Microsoft.AspNetCore.Authorization",
                             ""
                         ],
                         "entity":[
@@ -45,6 +46,7 @@
                         "column":"Column(\"?\")",
                         "entity": "",
                         "controller": "ApiController",
+                        "authentication" : "Authorize",
                         "constraints":{
                             "primaryKey":"Key",
                             "foreignKey":{

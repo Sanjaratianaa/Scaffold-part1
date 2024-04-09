@@ -4,6 +4,7 @@
  */
 package ambovombe.kombarika.generator;
 
+import ambovombe.kombarika.configuration.main.AuthProperties;
 import ambovombe.kombarika.configuration.main.LanguageDetails;
 import ambovombe.kombarika.configuration.main.TypeProperties;
 import ambovombe.kombarika.configuration.main.ViewDetails;
@@ -12,6 +13,7 @@ import ambovombe.kombarika.database.DbConnection;
 import ambovombe.kombarika.generator.parser.FileUtility;
 import ambovombe.kombarika.generator.service.DbService;
 import ambovombe.kombarika.generator.service.GeneratorService;
+import ambovombe.kombarika.generator.service.auth.Auth;
 import ambovombe.kombarika.generator.service.controller.Controller;
 import ambovombe.kombarika.generator.service.entity.Entity;
 import ambovombe.kombarika.generator.service.repository.Repository;
@@ -23,6 +25,8 @@ import lombok.Setter;
 import java.io.*;
 import java.util.List;
 
+import javax.swing.plaf.ViewportUI;
+
 
 /**
  * @author Mamisoa
@@ -30,11 +34,14 @@ import java.util.List;
  */
 @Getter @Setter
 public class CodeGenerator {
+    
     DbConnection dbConnection;
     LanguageDetails languageDetails;
     TypeProperties typeProperties;
     ViewDetails viewDetails;
     FrameworkProperties frameworkProperties;
+    AuthProperties authProperties;
+    boolean enableAuth = false;
 
     public CodeGenerator() throws Exception {
         this.dbConnection = new DbConnection();
@@ -45,6 +52,8 @@ public class CodeGenerator {
         this.typeProperties.init();
         this.viewDetails = new ViewDetails();
         this.viewDetails.init();
+        this.authProperties = new AuthProperties();
+        this.authProperties.init();
     }
 
     public void generateEntity(
@@ -222,6 +231,7 @@ public class CodeGenerator {
         FrameworkProperties frameworkProperties = languageProperties.getFrameworks().get(framework);
         String template = frameworkProperties.getTemplate();
         Controller controller = new Controller();
+        controller.setAuthenticationEnabled(this.isEnableAuth());
         controller.setAnnotationProperty(frameworkProperties.getAnnotationProperty());
         controller.setControllerProperty(frameworkProperties.getControllerProperty());
         controller.setCrudMethod(frameworkProperties.getCrudMethod());
@@ -309,6 +319,27 @@ public class CodeGenerator {
         generateRouter(path, viewType, tables);
     }
 
+    public void generateAuthentication( 
+        String path, 
+        String authPackage,
+        String secretKey,
+        String url, 
+        String framework,
+        String viewPath,
+        String viewType
+    ) throws Exception {
+        // Mi-antso an'ilay Auth aloha
+        Auth auth = new Auth();
+        String language = framework.split(":")[0];
+        auth.setAuthProperties(this.getAuthProperties().getLanguages().get(language));
+        auth.setProperties( this.getLanguageDetails().getLanguages().get(language) );
+        auth.setViewProperties(this.getViewDetails().getViews().get(viewType));
+        auth.setDetails(languageDetails);
+        auth.generateAuth(path, authPackage, url, secretKey, viewPath);
+        // Okey miantso an'ilay fonction créer auth indray izay
+        
+    }
+
     public void generateAll(
         String path, 
         String packageName, 
@@ -326,4 +357,32 @@ public class CodeGenerator {
         generateAllController(path, tables, packageName, entity, controller, repository, framework);  
         generateAllView(path, tables, view, viewType, url, framework);    
     }
+
+    public void generateAllWithAuth(
+        String path, 
+        String packageName, 
+        String entity, 
+        String controller, 
+        String repository,
+        String view,
+        String viewType,
+        String url,
+        String[] tables, 
+        String framework,
+        String authPackage,
+        String secretKey
+    ) throws Exception{
+        this.setEnableAuth(true);
+        generateAllEntity(path, tables, packageName ,entity, framework);
+        generateAllRepository(path, tables, packageName , entity, repository, framework);
+        generateAllController(path, tables, packageName, entity, controller, repository, framework);  
+        generateAllView(path, tables, view, viewType, url, framework);
+        generateAuthentication(path, packageName+"."+authPackage, secretKey, url, framework, view, viewType );
+    }
+
+    public void testIfAuthReadedCorrectly() {
+        this.authProperties.display();
+    }
+
+
 }

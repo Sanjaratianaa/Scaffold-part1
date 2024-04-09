@@ -1,11 +1,15 @@
 import React, {useState, useEffect} from "react";
 import {Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+
 import {
     IonPage,
     IonContent,
-    IonButton
+    IonButton,
+    IonIcon
 } from '@ionic/react';
+
+import { addCircleOutline, pencilOutline, pencilSharp, trashBinOutline } from "ionicons/icons";
 
 function #entity#(){
   const url = '#url#/';
@@ -89,7 +93,8 @@ function #entity#(){
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
           }
         });
   
@@ -122,7 +127,8 @@ function #entity#(){
         const response = await fetch(url + '[#path#]', {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
           },
           body: JSON.stringify(data)
         });
@@ -146,6 +152,7 @@ function #entity#(){
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
         },
         body: JSON.stringify(item)
       });
@@ -168,11 +175,6 @@ function #entity#(){
       <IonContent>
           <div className="row justify-content-end">
               <div className="col" >   
-                <div className="row">
-                  <IonButton onClick={handleShow}>
-                      Add #entity#
-                  </IonButton>
-                </div>    
 
                   <Modal show={show} onHide={handleClose}>
                       <Modal.Header closeButton>
@@ -182,7 +184,7 @@ function #entity#(){
                           <form action="" method="" id="insert" onSubmit={handleSaveSubmit}>
 #inputInsert#
                               <div className="mb-3">
-                                <IonButton type= "submit" >
+                                <IonButton color="success" type= "submit" >
                                   Save Changes
                                 </IonButton>
                               </div>
@@ -194,13 +196,18 @@ function #entity#(){
               </div>
               
           </div>
-          <div className="row">
+          <div className="table-responsive">
               <table className="table">
                   <thead id="table-head">
                       <tr>
 #header#
                           <th></th>
                           <th></th>
+                          <th>
+                            <IonButton onClick={handleShow}>
+                                  <IonIcon icon={addCircleOutline} />
+                            </IonButton>
+                          </th>
                       </tr>
                   </thead>    
                   <tbody id="table-body">
@@ -208,20 +215,20 @@ function #entity#(){
                               <tr key={item.#id#}>
 #tableValue#
                               <td>
-                                  <IonButton key={item.#id#} onClick={() => handleDeleteClick(item)}>
-                                      Delete
+                                  <IonButton color="danger  " key={item.#id#} onClick={() => handleDeleteClick(item)}>
+                                      <IonIcon icon={trashBinOutline} />
                                   </IonButton>
                               </td>   
                               <td>
                                   <IonButton key={item.#id#} onClick={() => handleSelectItem(item.#id#)}>
-                                      Update
+                                      <IonIcon icon={pencilSharp} />
                                   </IonButton>
                               </td>
                           </tr>
                       ))}
                       <tr>
                 <td>
-                  Showing {teeth.length} result(s) of {count}
+                  Showing {#entity#.length} result(s) of {count}
                 </td>
                 <td>
                   <IonButton disabled={ (currentPage == 1) ? 'true' : 'false' } id="prev-button" onClick={(event) => prevResult(event)}> Prev </IonButton>
@@ -240,7 +247,7 @@ function #entity#(){
                       <form action="" method="" id="update" onSubmit={handleUpdateSubmit}>
 #inputUpdate#
                           <div className="mb-3">
-                            <IonButton type= "submit" >
+                            <IonButton color="success" type= "submit" >
                               Save Changes
                             </IonButton>
                           </div>

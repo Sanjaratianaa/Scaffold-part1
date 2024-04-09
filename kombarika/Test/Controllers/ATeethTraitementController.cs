@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Test.Context;
 using Test.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 
+[Authorize]
 [ApiController]
 [Route("api/[[aTeethTraitement]]")]
 public class ATeethTraitementController : Controller {

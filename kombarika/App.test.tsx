@@ -28,6 +28,8 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
+import Login from './pages/Login';
+
 /* Theme variables */
 import './theme/variables.css';
 
@@ -50,6 +52,12 @@ const App: React.FC = () => (
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
+                <Route path="/">
+                    <Redirect to="/login" />
+                </Route>
+                <Route path="/login">
+                    <Login />
+                </Route>
     	<Route path="/aClientTeeth" exact={true}> 
 	 <AClientTeeth /> 
 	 </Route>

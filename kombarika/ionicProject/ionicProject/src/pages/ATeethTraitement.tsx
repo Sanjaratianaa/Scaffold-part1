@@ -1,11 +1,15 @@
 import React, {useState, useEffect} from "react";
 import {Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+
 import {
     IonPage,
     IonContent,
-    IonButton
+    IonButton,
+    IonIcon
 } from '@ionic/react';
+
+import { addCircleOutline, pencilOutline, pencilSharp, trashBinOutline } from "ionicons/icons";
 
 function aTeethTraitement(){
   const url = 'http://localhost:5106/api/';
@@ -95,7 +99,8 @@ function aTeethTraitement(){
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
           }
         });
   
@@ -128,7 +133,8 @@ function aTeethTraitement(){
         const response = await fetch(url + '[aTeethTraitement]', {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
           },
           body: JSON.stringify(data)
         });
@@ -152,6 +158,7 @@ function aTeethTraitement(){
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
         },
         body: JSON.stringify(item)
       });
@@ -186,7 +193,11 @@ function aTeethTraitement(){
 	useEffect(() => {
 		const getA_teeth_traitement = async () => {
 			try {
-				const response = await fetch(url + '[aTeethTraitement]/'+currentPage);
+				const response = await fetch(url + '[aTeethTraitement]/'+currentPage , {
+	 headers: {
+	 "Authorization" : "Bearer " + sessionStorage.getItem('token') 
+	} 
+	});
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					};
@@ -205,7 +216,11 @@ function aTeethTraitement(){
 	useEffect(() => {
 		const getRefTraitement = async () => {
 			try {
-				const response = await fetch(url + '[traitement]/');
+				const response = await fetch(url + '[traitement]/' , {
+	 headers: {
+	 "Authorization" : "Bearer " + sessionStorage.getItem('token') 
+	} 
+	});
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					};
@@ -222,7 +237,11 @@ function aTeethTraitement(){
 	useEffect(() => {
 		const getTeethNumber = async () => {
 			try {
-				const response = await fetch(url + '[teeth]/');
+				const response = await fetch(url + '[teeth]/' , {
+	 headers: {
+	 "Authorization" : "Bearer " + sessionStorage.getItem('token') 
+	} 
+	});
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					};
@@ -243,11 +262,6 @@ function aTeethTraitement(){
       <IonContent>
           <div className="row justify-content-end">
               <div className="col" >   
-                <div className="row">
-                  <IonButton onClick={handleShow}>
-                      Add aTeethTraitement
-                  </IonButton>
-                </div>    
 
                   <Modal show={show} onHide={handleClose}>
                       <Modal.Header closeButton>
@@ -257,7 +271,7 @@ function aTeethTraitement(){
                           <form action="" method="" id="insert" onSubmit={handleSaveSubmit}>
 	<div className="mb-3"> 
 	 	<label className="form-label">id</label> 
-	 	<select className="form-control" name="traitement" id="select-traitement">
+	 	<select className="form-control" name="refTraitement" id="select-refTraitement">
 			{refTraitement.map((elt) => (
 				<option value={elt.id}>{elt.reference}</option>
 			))}
@@ -269,7 +283,7 @@ function aTeethTraitement(){
 	</div>
 	<div className="mb-3"> 
 	 	<label className="form-label">id</label> 
-	 	<select className="form-control" name="teeth" id="select-teeth">
+	 	<select className="form-control" name="teethNumber" id="select-teethNumber">
 			{teethNumber.map((elt) => (
 				<option value={elt.id}>{elt.reference}</option>
 			))}
@@ -277,7 +291,7 @@ function aTeethTraitement(){
 		</select>
 	</div>
                               <div className="mb-3">
-                                <IonButton type= "submit" >
+                                <IonButton color="success" type= "submit" >
                                   Save Changes
                                 </IonButton>
                               </div>
@@ -289,7 +303,7 @@ function aTeethTraitement(){
               </div>
               
           </div>
-          <div className="row">
+          <div className="table-responsive">
               <table className="table">
                   <thead id="table-head">
                       <tr>
@@ -300,6 +314,11 @@ function aTeethTraitement(){
 
                           <th></th>
                           <th></th>
+                          <th>
+                            <IonButton onClick={handleShow}>
+                                  <IonIcon icon={addCircleOutline} />
+                            </IonButton>
+                          </th>
                       </tr>
                   </thead>    
                   <tbody id="table-body">
@@ -311,20 +330,20 @@ function aTeethTraitement(){
 		<td>{item.id}</td>
 
                               <td>
-                                  <IonButton key={item.id} onClick={() => handleDeleteClick(item)}>
-                                      Delete
+                                  <IonButton color="danger  " key={item.id} onClick={() => handleDeleteClick(item)}>
+                                      <IonIcon icon={trashBinOutline} />
                                   </IonButton>
                               </td>   
                               <td>
                                   <IonButton key={item.id} onClick={() => handleSelectItem(item.id)}>
-                                      Update
+                                      <IonIcon icon={pencilSharp} />
                                   </IonButton>
                               </td>
                           </tr>
                       ))}
                       <tr>
                 <td>
-                  Showing {teeth.length} result(s) of {count}
+                  Showing {aTeethTraitement.length} result(s) of {count}
                 </td>
                 <td>
                   <IonButton disabled={ (currentPage == 1) ? 'true' : 'false' } id="prev-button" onClick={(event) => prevResult(event)}> Prev </IonButton>
@@ -377,7 +396,7 @@ function aTeethTraitement(){
 	</div>
 	
                           <div className="mb-3">
-                            <IonButton type= "submit" >
+                            <IonButton color="success" type= "submit" >
                               Save Changes
                             </IonButton>
                           </div>

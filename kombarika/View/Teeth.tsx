@@ -1,11 +1,15 @@
 import React, {useState, useEffect} from "react";
 import {Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+
 import {
     IonPage,
     IonContent,
-    IonButton
+    IonButton,
+    IonIcon
 } from '@ionic/react';
+
+import { addCircleOutline, pencilOutline, pencilSharp, trashBinOutline } from "ionicons/icons";
 
 function teeth(){
   const url = 'http://localhost:5106/api/';
@@ -93,7 +97,8 @@ function teeth(){
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
           }
         });
   
@@ -126,7 +131,8 @@ function teeth(){
         const response = await fetch(url + '[teeth]', {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
           },
           body: JSON.stringify(data)
         });
@@ -150,6 +156,7 @@ function teeth(){
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
         },
         body: JSON.stringify(item)
       });
@@ -184,7 +191,11 @@ function teeth(){
 	useEffect(() => {
 		const getTeeth = async () => {
 			try {
-				const response = await fetch(url + '[teeth]/'+currentPage);
+				const response = await fetch(url + '[teeth]/'+currentPage , {
+	 headers: {
+	 "Authorization" : "Bearer " + sessionStorage.getItem('token') 
+	} 
+	});
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					};
@@ -203,7 +214,11 @@ function teeth(){
 	useEffect(() => {
 		const getType = async () => {
 			try {
-				const response = await fetch(url + '[teethType]/');
+				const response = await fetch(url + '[teethType]/' , {
+	 headers: {
+	 "Authorization" : "Bearer " + sessionStorage.getItem('token') 
+	} 
+	});
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					};
@@ -224,11 +239,6 @@ function teeth(){
       <IonContent>
           <div className="row justify-content-end">
               <div className="col" >   
-                <div className="row">
-                  <IonButton onClick={handleShow}>
-                      Add teeth
-                  </IonButton>
-                </div>    
 
                   <Modal show={show} onHide={handleClose}>
                       <Modal.Header closeButton>
@@ -246,7 +256,7 @@ function teeth(){
 	</div>
 	<div className="mb-3"> 
 	 	<label className="form-label">id</label> 
-	 	<select className="form-control" name="teethType" id="select-teethType">
+	 	<select className="form-control" name="type" id="select-type">
 			{type.map((elt) => (
 				<option value={elt.teethType}>{elt.name}</option>
 			))}
@@ -254,7 +264,7 @@ function teeth(){
 		</select>
 	</div>
                               <div className="mb-3">
-                                <IonButton type= "submit" >
+                                <IonButton color="success" type= "submit" >
                                   Save Changes
                                 </IonButton>
                               </div>
@@ -266,7 +276,7 @@ function teeth(){
               </div>
               
           </div>
-          <div className="row">
+          <div className="table-responsive">
               <table className="table">
                   <thead id="table-head">
                       <tr>
@@ -277,6 +287,11 @@ function teeth(){
 
                           <th></th>
                           <th></th>
+                          <th>
+                            <IonButton onClick={handleShow}>
+                                  <IonIcon icon={addCircleOutline} />
+                            </IonButton>
+                          </th>
                       </tr>
                   </thead>    
                   <tbody id="table-body">
@@ -288,13 +303,13 @@ function teeth(){
 		<td>{item.type.name}</td>
 
                               <td>
-                                  <IonButton key={item.id} onClick={() => handleDeleteClick(item)}>
-                                      Delete
+                                  <IonButton color="danger  " key={item.id} onClick={() => handleDeleteClick(item)}>
+                                      <IonIcon icon={trashBinOutline} />
                                   </IonButton>
                               </td>   
                               <td>
                                   <IonButton key={item.id} onClick={() => handleSelectItem(item.id)}>
-                                      Update
+                                      <IonIcon icon={pencilSharp} />
                                   </IonButton>
                               </td>
                           </tr>
@@ -341,7 +356,7 @@ function teeth(){
 	</select>
 	</div>
                           <div className="mb-3">
-                            <IonButton type= "submit" >
+                            <IonButton color="success" type= "submit" >
                               Save Changes
                             </IonButton>
                           </div>

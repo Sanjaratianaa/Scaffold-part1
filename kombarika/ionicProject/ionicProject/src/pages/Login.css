@@ -1,0 +1,59 @@
+/* LoginPage.css */
+
+:root{
+    --ion-color-button: #ffc72f;
+  }
+  
+  .ion-color-button {
+    --ion-color-base: var(--ion-color-button);
+  }
+  
+  .login-container {
+      max-width: 400px;
+      margin: 34% 10% 10% 10%;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    label {
+      margin-bottom: 10px;
+    }
+    
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+    
+    button {
+      background-color: #e9e9e9;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    .login-button{
+      background-color: #ffc72f;
+    }
+    
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+    .erreur {
+        color: red;
+    }

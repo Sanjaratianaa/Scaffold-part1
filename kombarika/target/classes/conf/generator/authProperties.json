@@ -1,0 +1,11 @@
+{
+    "languages" : {
+        "csharp" : {
+            "controllerTemplate" : "authController.txt",
+            "responseTemplate" : "authResponse.txt",
+            "loginModel" : "LoginModel.txt",
+            "loginAuth" : "loginView.txt",
+            "loginDesign" : "loginCss.txt"
+        }
+    }
+}

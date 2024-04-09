@@ -10,5 +10,6 @@ public class AnnotationProperty {
     String column;
     String entity;
     String controller;
+    String authentication;
     Constraint constraints;
 }

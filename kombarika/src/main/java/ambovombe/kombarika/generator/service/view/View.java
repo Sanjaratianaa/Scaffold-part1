@@ -35,7 +35,7 @@ public class View {
                         .replace("#attribute#", ObjectUtility.formatToCamelCase(attribute));
                     option = Misc.tabulate(Misc.tabulate(option));
                     res += this.getViewProperties().getSelect()
-                    .replace("#name#", ObjectUtility.formatToCamelCase(temp))
+                    .replace("#name#", ObjectUtility.formatToCamelCase(set.getKey()))
                     .replace("#option#", option);
                     continue;
                 }

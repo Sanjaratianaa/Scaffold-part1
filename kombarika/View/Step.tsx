@@ -1,11 +1,15 @@
 import React, {useState, useEffect} from "react";
 import {Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+
 import {
     IonPage,
     IonContent,
-    IonButton
+    IonButton,
+    IonIcon
 } from '@ionic/react';
+
+import { addCircleOutline, pencilOutline, pencilSharp, trashBinOutline } from "ionicons/icons";
 
 function step(){
   const url = 'http://localhost:5106/api/';
@@ -97,7 +101,8 @@ function step(){
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
           }
         });
   
@@ -130,7 +135,8 @@ function step(){
         const response = await fetch(url + '[step]', {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
           },
           body: JSON.stringify(data)
         });
@@ -154,6 +160,7 @@ function step(){
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
         },
         body: JSON.stringify(item)
       });
@@ -192,7 +199,11 @@ function step(){
 	useEffect(() => {
 		const getStep = async () => {
 			try {
-				const response = await fetch(url + '[step]/'+currentPage);
+				const response = await fetch(url + '[step]/'+currentPage , {
+	 headers: {
+	 "Authorization" : "Bearer " + sessionStorage.getItem('token') 
+	} 
+	});
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					};
@@ -211,7 +222,11 @@ function step(){
 	useEffect(() => {
 		const getMinState = async () => {
 			try {
-				const response = await fetch(url + '[states]/');
+				const response = await fetch(url + '[states]/' , {
+	 headers: {
+	 "Authorization" : "Bearer " + sessionStorage.getItem('token') 
+	} 
+	});
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					};
@@ -228,7 +243,11 @@ function step(){
 	useEffect(() => {
 		const getMaxState = async () => {
 			try {
-				const response = await fetch(url + '[states]/');
+				const response = await fetch(url + '[states]/' , {
+	 headers: {
+	 "Authorization" : "Bearer " + sessionStorage.getItem('token') 
+	} 
+	});
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					};
@@ -245,7 +264,11 @@ function step(){
 	useEffect(() => {
 		const getTraitementToDo = async () => {
 			try {
-				const response = await fetch(url + '[traitement]/');
+				const response = await fetch(url + '[traitement]/' , {
+	 headers: {
+	 "Authorization" : "Bearer " + sessionStorage.getItem('token') 
+	} 
+	});
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					};
@@ -266,11 +289,6 @@ function step(){
       <IonContent>
           <div className="row justify-content-end">
               <div className="col" >   
-                <div className="row">
-                  <IonButton onClick={handleShow}>
-                      Add step
-                  </IonButton>
-                </div>    
 
                   <Modal show={show} onHide={handleClose}>
                       <Modal.Header closeButton>
@@ -280,7 +298,7 @@ function step(){
                           <form action="" method="" id="insert" onSubmit={handleSaveSubmit}>
 	<div className="mb-3"> 
 	 	<label className="form-label">idStep</label> 
-	 	<select className="form-control" name="states" id="select-states">
+	 	<select className="form-control" name="minState" id="select-minState">
 			{minState.map((elt) => (
 				<option value={elt.idStates}>{elt.stateName}</option>
 			))}
@@ -292,7 +310,7 @@ function step(){
 	</div>
 	<div className="mb-3"> 
 	 	<label className="form-label">idStep</label> 
-	 	<select className="form-control" name="states" id="select-states">
+	 	<select className="form-control" name="maxState" id="select-maxState">
 			{maxState.map((elt) => (
 				<option value={elt.idStates}>{elt.stateName}</option>
 			))}
@@ -300,7 +318,7 @@ function step(){
 		</select>
 	</div><div className="mb-3"> 
 	 	<label className="form-label">idStep</label> 
-	 	<select className="form-control" name="traitement" id="select-traitement">
+	 	<select className="form-control" name="traitementToDo" id="select-traitementToDo">
 			{traitementToDo.map((elt) => (
 				<option value={elt.idStates}>{elt.stateName}</option>
 			))}
@@ -308,7 +326,7 @@ function step(){
 		</select>
 	</div>
                               <div className="mb-3">
-                                <IonButton type= "submit" >
+                                <IonButton color="success" type= "submit" >
                                   Save Changes
                                 </IonButton>
                               </div>
@@ -320,7 +338,7 @@ function step(){
               </div>
               
           </div>
-          <div className="row">
+          <div className="table-responsive">
               <table className="table">
                   <thead id="table-head">
                       <tr>
@@ -332,6 +350,11 @@ function step(){
 
                           <th></th>
                           <th></th>
+                          <th>
+                            <IonButton onClick={handleShow}>
+                                  <IonIcon icon={addCircleOutline} />
+                            </IonButton>
+                          </th>
                       </tr>
                   </thead>    
                   <tbody id="table-body">
@@ -344,20 +367,20 @@ function step(){
 		<td>{item.traitementToDo.stateName}</td>
 
                               <td>
-                                  <IonButton key={item.idStep} onClick={() => handleDeleteClick(item)}>
-                                      Delete
+                                  <IonButton color="danger  " key={item.idStep} onClick={() => handleDeleteClick(item)}>
+                                      <IonIcon icon={trashBinOutline} />
                                   </IonButton>
                               </td>   
                               <td>
                                   <IonButton key={item.idStep} onClick={() => handleSelectItem(item.idStep)}>
-                                      Update
+                                      <IonIcon icon={pencilSharp} />
                                   </IonButton>
                               </td>
                           </tr>
                       ))}
                       <tr>
                 <td>
-                  Showing {teeth.length} result(s) of {count}
+                  Showing {step.length} result(s) of {count}
                 </td>
                 <td>
                   <IonButton disabled={ (currentPage == 1) ? 'true' : 'false' } id="prev-button" onClick={(event) => prevResult(event)}> Prev </IonButton>
@@ -435,7 +458,7 @@ function step(){
 	</select>
 	</div>
                           <div className="mb-3">
-                            <IonButton type= "submit" >
+                            <IonButton color="success" type= "submit" >
                               Save Changes
                             </IonButton>
                           </div>

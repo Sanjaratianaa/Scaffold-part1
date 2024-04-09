@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "xG1m5hA3HQuYcTX8E5uco7qyAUIOmzLQgomU2gpoTWSn8169J3DIpVVAJxXMziKpipe6z9/6AJAwGDqWNvKWFg==",
+  "dgSpecHash": "osO56jW4lNGQGh70ZB+Wa1jHi9SxB2dHhbFz6vel3zYv7ALatsaqh9djsWGm0M1PB6knSH/0cNLEhUEtGZljTQ==",
   "success": true,
   "projectFilePath": "/home/mounts/GitHub/Scaffold-part1/kombarika/Test/Test.csproj",
   "expectedPackageFiles": [
     "/home/sarobidy/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/home/sarobidy/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",
+    "/home/sarobidy/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/6.0.0/microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "/home/sarobidy/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/home/sarobidy/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
     "/home/sarobidy/.nuget/packages/microsoft.data.sqlclient/5.1.5/microsoft.data.sqlclient.5.1.5.nupkg.sha512",
@@ -61,9 +62,9 @@
     "/home/sarobidy/.nuget/packages/system.text.json/4.7.2/system.text.json.4.7.2.nupkg.sha512",
     "/home/sarobidy/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "/home/sarobidy/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512",
-    "/home/sarobidy/.nuget/packages/microsoft.netcore.app.ref/6.0.8/microsoft.netcore.app.ref.6.0.8.nupkg.sha512",
     "/home/sarobidy/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.8/microsoft.aspnetcore.app.ref.6.0.8.nupkg.sha512",
-    "/home/sarobidy/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.8/microsoft.netcore.app.host.linux-x64.6.0.8.nupkg.sha512"
+    "/home/sarobidy/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.8/microsoft.netcore.app.host.linux-x64.6.0.8.nupkg.sha512",
+    "/home/sarobidy/.nuget/packages/microsoft.netcore.app.ref/6.0.8/microsoft.netcore.app.ref.6.0.8.nupkg.sha512"
   ],
   "logs": []
 }

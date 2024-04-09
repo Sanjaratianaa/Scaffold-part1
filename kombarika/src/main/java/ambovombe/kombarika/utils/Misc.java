@@ -17,6 +17,10 @@ public class Misc {
         return currentLocation("template");
     }
 
+    public static String getAuthTemplateFolder(){
+        return getTemplateLocation() + File.separator + "auth";
+    };
+
     public static String getSourceTemplateLocation(){
         return getTemplateLocation() + File.separator + "sourceCode";
     }

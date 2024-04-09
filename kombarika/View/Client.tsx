@@ -1,11 +1,15 @@
 import React, {useState, useEffect} from "react";
 import {Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+
 import {
     IonPage,
     IonContent,
-    IonButton
+    IonButton,
+    IonIcon
 } from '@ionic/react';
+
+import { addCircleOutline, pencilOutline, pencilSharp, trashBinOutline } from "ionicons/icons";
 
 function client(){
   const url = 'http://localhost:5106/api/';
@@ -91,7 +95,8 @@ function client(){
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
           }
         });
   
@@ -124,7 +129,8 @@ function client(){
         const response = await fetch(url + '[client]', {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
           },
           body: JSON.stringify(data)
         });
@@ -148,6 +154,7 @@ function client(){
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+            Authorization: 'Bearer '+sessionStorage.getItem('token')
         },
         body: JSON.stringify(item)
       });
@@ -178,7 +185,11 @@ function client(){
 	useEffect(() => {
 		const getClient = async () => {
 			try {
-				const response = await fetch(url + '[client]/'+currentPage);
+				const response = await fetch(url + '[client]/'+currentPage , {
+	 headers: {
+	 "Authorization" : "Bearer " + sessionStorage.getItem('token') 
+	} 
+	});
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					};
@@ -201,11 +212,6 @@ function client(){
       <IonContent>
           <div className="row justify-content-end">
               <div className="col" >   
-                <div className="row">
-                  <IonButton onClick={handleShow}>
-                      Add client
-                  </IonButton>
-                </div>    
 
                   <Modal show={show} onHide={handleClose}>
                       <Modal.Header closeButton>
@@ -223,7 +229,7 @@ function client(){
 	</div>
 	
                               <div className="mb-3">
-                                <IonButton type= "submit" >
+                                <IonButton color="success" type= "submit" >
                                   Save Changes
                                 </IonButton>
                               </div>
@@ -235,7 +241,7 @@ function client(){
               </div>
               
           </div>
-          <div className="row">
+          <div className="table-responsive">
               <table className="table">
                   <thead id="table-head">
                       <tr>
@@ -245,6 +251,11 @@ function client(){
 
                           <th></th>
                           <th></th>
+                          <th>
+                            <IonButton onClick={handleShow}>
+                                  <IonIcon icon={addCircleOutline} />
+                            </IonButton>
+                          </th>
                       </tr>
                   </thead>    
                   <tbody id="table-body">
@@ -255,20 +266,20 @@ function client(){
 		<td>{item.nom}</td>
 
                               <td>
-                                  <IonButton key={item.idClient} onClick={() => handleDeleteClick(item)}>
-                                      Delete
+                                  <IonButton color="danger  " key={item.idClient} onClick={() => handleDeleteClick(item)}>
+                                      <IonIcon icon={trashBinOutline} />
                                   </IonButton>
                               </td>   
                               <td>
                                   <IonButton key={item.idClient} onClick={() => handleSelectItem(item.idClient)}>
-                                      Update
+                                      <IonIcon icon={pencilSharp} />
                                   </IonButton>
                               </td>
                           </tr>
                       ))}
                       <tr>
                 <td>
-                  Showing {teeth.length} result(s) of {count}
+                  Showing {client.length} result(s) of {count}
                 </td>
                 <td>
                   <IonButton disabled={ (currentPage == 1) ? 'true' : 'false' } id="prev-button" onClick={(event) => prevResult(event)}> Prev </IonButton>
@@ -299,7 +310,7 @@ function client(){
 	</div>
 	
                           <div className="mb-3">
-                            <IonButton type= "submit" >
+                            <IonButton color="success" type= "submit" >
                               Save Changes
                             </IonButton>
                           </div>

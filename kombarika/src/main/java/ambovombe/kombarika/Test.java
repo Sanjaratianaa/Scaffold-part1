@@ -29,7 +29,9 @@ public class Test {
         String repository = "Context";
         String view = "View";
         String viewType = "react";
+        String auth = "Auth";
         String url = "http://localhost:5106/api";
+        String secretKey = "FrameworkMrNainaAnayRehetraMiaraka";
         try{
             // String[] tables = {"district","region"};
             // DbConnection dbConnection = codeGenerator.getDbConnection();
@@ -43,8 +45,10 @@ public class Test {
             String[] tables = DbService.getAllTablesArrays(codeGenerator.getDbConnection());
             // for(String table: tables)
             //     System.out.println(table);
-            codeGenerator.generateAll(path, packageName, entity, controller, repository, view, viewType, url, tables, framework);
+            // codeGenerator.generateAll(path, packageName, entity, controller, repository, view, viewType, url, tables, framework);
             // codeGenerator.generateEntity(path, "car", packageName+".entity", framework);
+            // codeGenerator.testIfAuthReadedCorrectly();
+            codeGenerator.generateAllWithAuth(path, packageName, entity, controller, repository, view, viewType, url, tables, framework, auth, secretKey );
         }catch(Exception e){
             e.printStackTrace();
         }finally{
