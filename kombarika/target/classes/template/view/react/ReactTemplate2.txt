@@ -82,7 +82,7 @@ function #entity#(){
   
       for (let [key, value] of formData.entries()) {
         if (form.elements[key].tagName === 'SELECT') {
-          data[key] = { id: value };
+          data[key] = { [key]: value };
         } else {
           data[key] = value;
         }
@@ -118,7 +118,7 @@ function #entity#(){
       const data = {};
       for (let [key, value] of formData.entries()) {
         if (form.elements[key].tagName === 'SELECT') {
-          data[key] = { id: value };
+          data[key] = { [key]: value };
         } else {
           data[key] = value;
         }
@@ -138,7 +138,7 @@ function #entity#(){
         }
         handleClose2();
         // If you want to reload the page after success
-        window.location.reload();
+        // window.location.reload();
       } catch (error) {
         console.error('Error:', error);
       }
@@ -160,7 +160,7 @@ function #entity#(){
         throw new Error('Network response was not ok');
       }
       // If you want to reload the page after success
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.error('Error:', error);
     }

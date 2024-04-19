@@ -29,6 +29,7 @@ public class LanguageProperties {
     private String fieldSyntax;
     private String methodSyntax;
     private String endOfInstruction;
+    private String foreignCheck;
     private String constructorSyntax;
     private String listSyntax;
     private HashMap<String, FrameworkProperties> frameworks;

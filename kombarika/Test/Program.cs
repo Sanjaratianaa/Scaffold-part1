@@ -28,10 +28,13 @@ builder.Services.AddAuthentication(opt => {
 
 // ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
-builder.Services.AddControllers();
+// builder.Services.AddControllers();
 builder.Services.AddDbContext<ContextDbContext>( options => options.UseNpgsql(
-    "Server=127.0.0.1;Port=5432;Database=dentisterie;User Id=postgres;Password=postgres;"
+    "Server=127.0.0.1;Port=5432;Database=scaftest;User Id=postgres;Password=admin;"
 )  );
+
+builder.Services.AddControllers(options => 
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
 builder.Services.AddCors(options =>
 {

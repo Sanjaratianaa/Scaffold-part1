@@ -37,7 +37,7 @@ function #entity#(){
   
       for (let [key, value] of formData.entries()) {
         if (form.elements[key].tagName === 'SELECT') {
-          data[key] = { id: value };
+          data[key] = { [key] : value };
         } else {
           data[key] = value;
         }
@@ -48,7 +48,9 @@ function #entity#(){
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+          "Authorization" : "Bearer " + sessionStorage.getItem('token')
+
           }
         });
   
@@ -72,7 +74,7 @@ function #entity#(){
       const data = {};
       for (let [key, value] of formData.entries()) {
         if (form.elements[key].tagName === 'SELECT') {
-          data[key] = { id: value };
+          data[key] = { [key]: value };
         } else {
           data[key] = value;
         }
@@ -81,7 +83,9 @@ function #entity#(){
         const response = await fetch(url + '#path#', {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Authorization" : "Bearer " + sessionStorage.getItem('token')
+
           },
           body: JSON.stringify(data)
         });
@@ -91,7 +95,7 @@ function #entity#(){
         }
         handleClose2();
         // If you want to reload the page after success
-        window.location.reload();
+        // window.location.reload();
       } catch (error) {
         console.error('Error:', error);
       }
@@ -105,6 +109,7 @@ function #entity#(){
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          "Authorization" : "Bearer " + sessionStorage.getItem('token')
         },
         body: JSON.stringify(item)
       });
