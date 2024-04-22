@@ -30,7 +30,7 @@ builder.Services.AddAuthentication(opt => {
 // Add services to the container.
 // builder.Services.AddControllers();
 builder.Services.AddDbContext<ContextDbContext>( options => options.UseNpgsql(
-    "Server=127.0.0.1;Port=5432;Database=scaftest;User Id=postgres;Password=admin;"
+    "Server=127.0.0.1;Port=5432;Database=testscaff;User Id=postgres;Password=admin;"
 )  );
 
 builder.Services.AddControllers(options => 

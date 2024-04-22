@@ -34,6 +34,14 @@ public class LivreController : Controller {
 	[HttpPut]
 	public ActionResult<Livre> update([FromBody] Livre livre){
 	 	var temp = livre;
+		 var auteurName = livre.IdAuteur.IdAuteur;
+		 var auteur = _context.Auteur.FirstOrDefault(a => a.IdAuteur == auteurName);
+		 livre.IdAuteur = auteur;
+		var categoriesName = livre.IdCategories.IdCategories;
+		 var categories = _context.Categories.FirstOrDefault(a => a.IdCategories == categoriesName);
+		 livre.IdCategories = categories;
+		 
+		 _context.Livre.Update(livre); 
 		_context.SaveChanges();
 		return Ok();
 	}

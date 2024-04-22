@@ -63,7 +63,7 @@
                         "findAll": "var all = await _context.?#entre#.Skip( (page - 1) * limit ).Take(limit).ToListAsync();\n \tvar count = await _context.?.CountAsync();\n \t Response.Headers.Add(\"X-total-count\", \"\"+count); \n \treturn Ok(all);",
                         "findById": "",
                         "delete": "_context.?.Remove(#object#);\n_context.SaveChanges();\nreturn Ok();",
-                        "update": "var temp = #object#;\n_context.SaveChanges();\nreturn Ok();",
+                        "update": "var temp = #object#;\n #foreign-check# \n _context.?.Update(#object#); \n_context.SaveChanges();\nreturn Ok();",
                         "save": "#foreign-check#\n_context.?.Add(#object#);\n_context.SaveChanges();\nreturn Ok();"
                     },
                     "controllerProperty": {

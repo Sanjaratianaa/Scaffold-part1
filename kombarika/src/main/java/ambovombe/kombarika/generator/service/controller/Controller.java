@@ -72,14 +72,32 @@ public class Controller{
         return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerProperty().getPost()) + "\n" + function);
     }
 
-    public String update(String table) throws Exception{
+    public String update(String table, HashMap<String, String> cols, HashMap<String, String> foreigns) throws Exception{
         String body = "";
         String args = "";
+        String foreign = "";
+
+        String checkConstraintsSyntax = this.getLanguageProperties().getForeignCheck();
+        // okey azo iny ny manaraka de ny hoe alaivo ny constraints rehetra
+
+        System.out.println( "Foreings '' " + foreigns  );
+        // System.out.println( "Forei '' " + columns  );
+
+        for( Map.Entry<String, String> f : foreigns.entrySet() ){
+            String a = checkConstraintsSyntax.replace("#foreign-name#", f.getValue());
+            String foreignField = ObjectUtility.formatToCamelCase(f.getKey());
+            a = a.replace("#main-entity#", ObjectUtility.formatToCamelCase(table));
+            a = a.replace("#foreign-field#", ObjectUtility.capitalize(foreignField));
+            a = a.replace("#foreign-entity#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(f.getValue())));
+            a = a.replace("#foreign-id#", ObjectUtility.capitalize(foreignField));
+            foreign = foreign + a + "\n";
+        }
         args += this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerProperty().getAnnotationArgumentParameterFormData()) + " "
                 + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)) + " "
                 + ObjectUtility.formatToCamelCase(table);
         body += Misc.tabulate(this.getCrudMethod().getUpdate()
             .replace("#object#", ObjectUtility.formatToCamelCase(table))
+            .replace("#foreign-check#", foreign)
             .replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))));
         String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "update")
@@ -175,7 +193,7 @@ public class Controller{
         HashMap<String, String> foreignKeys = DbService.getForeignKeys(this.getDbConnection(), table);
         String save = save(table, columns, foreignKeys);
         String findAll = findAll(table, columns, foreignKeys);
-        String update = update(table);
+        String update = update(table, columns, foreignKeys);
         String delete = delete(table);
         stringBuilder.append(save);
         stringBuilder.append("\n");

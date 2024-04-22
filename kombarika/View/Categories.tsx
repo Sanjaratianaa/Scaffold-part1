@@ -101,14 +101,16 @@ function categories(){
         });
   
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          //throw new Error('Network response was not ok');
         }
   
         handleClose();
+        setLoading(true);
         // If you want to reload the page after success
-        window.location.reload();
+        // window.location.reload();
       } catch (error) {
         console.log('Error:', error);
+        alert(error);
       }
   };
 
@@ -136,13 +138,14 @@ function categories(){
         });
   
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          //throw new Error('Network response was not ok');
         }
         handleClose2();
+        setLoading(true);
         // If you want to reload the page after success
         // window.location.reload();
       } catch (error) {
-        console.error('Error:', error);
+        alert(error);
       }
   };
 
@@ -159,12 +162,14 @@ function categories(){
         body: JSON.stringify(item)
       });
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        //throw new Error('Network response was not ok');
       }
+      setLoading(true);
       // If you want to reload the page after success
       // window.location.reload();
     } catch (error) {
-      console.error('Error:', error);
+      //console.error('Error:', error);
+      alert(error);
     }
   };
 
@@ -187,20 +192,20 @@ function categories(){
 	} 
 	});
 					if (!response.ok) {
-						throw new Error('Network response was not ok');
+						//throw new Error('Network response was not ok');
 					};
 				const data = await response.json();
 	 const c = response.headers.get('X-Total-Count'); 
 	 			 setCount(c); 
 	 			setCategories(data);
 			} catch (error) {
-				setError(error);
+				alert(error);
 			} finally {
 				setLoading(false);
 			}
 		};
 		getCategories();
-	}, [currentPage]);
+	}, [currentPage, loading]);
 	
 
   return (

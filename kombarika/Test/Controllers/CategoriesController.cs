@@ -28,6 +28,8 @@ public class CategoriesController : Controller {
 	[HttpPut]
 	public ActionResult<Categories> update([FromBody] Categories categories){
 	 	var temp = categories;
+		  
+		 _context.Categories.Update(categories); 
 		_context.SaveChanges();
 		return Ok();
 	}

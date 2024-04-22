@@ -105,14 +105,16 @@ function livre(){
         });
   
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          //throw new Error('Network response was not ok');
         }
   
         handleClose();
+        setLoading(true);
         // If you want to reload the page after success
-        window.location.reload();
+        // window.location.reload();
       } catch (error) {
         console.log('Error:', error);
+        alert(error);
       }
   };
 
@@ -140,13 +142,14 @@ function livre(){
         });
   
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          //throw new Error('Network response was not ok');
         }
         handleClose2();
+        setLoading(true);
         // If you want to reload the page after success
         // window.location.reload();
       } catch (error) {
-        console.error('Error:', error);
+        alert(error);
       }
   };
 
@@ -163,12 +166,14 @@ function livre(){
         body: JSON.stringify(item)
       });
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        //throw new Error('Network response was not ok');
       }
+      setLoading(true);
       // If you want to reload the page after success
       // window.location.reload();
     } catch (error) {
-      console.error('Error:', error);
+      //console.error('Error:', error);
+      alert(error);
     }
   };
 
@@ -203,20 +208,20 @@ function livre(){
 	} 
 	});
 					if (!response.ok) {
-						throw new Error('Network response was not ok');
+						//throw new Error('Network response was not ok');
 					};
 				const data = await response.json();
 	 const c = response.headers.get('X-Total-Count'); 
 	 			 setCount(c); 
 	 			setLivre(data);
 			} catch (error) {
-				setError(error);
+				alert(error);
 			} finally {
 				setLoading(false);
 			}
 		};
 		getLivre();
-	}, [currentPage]);
+	}, [currentPage, loading]);
 	useEffect(() => {
 		const getIdAuteur = async () => {
 			try {
@@ -226,12 +231,12 @@ function livre(){
 	} 
 	});
 					if (!response.ok) {
-						throw new Error('Network response was not ok');
+						//throw new Error('Network response was not ok');
 					};
 				const data = await response.json(); 
 	 			setIdAuteur(data);
 			} catch (error) {
-				setError(error);
+				alert(error);
 			} finally {
 				setLoading(false);
 			}
@@ -247,12 +252,12 @@ function livre(){
 	} 
 	});
 					if (!response.ok) {
-						throw new Error('Network response was not ok');
+						//throw new Error('Network response was not ok');
 					};
 				const data = await response.json(); 
 	 			setIdCategories(data);
 			} catch (error) {
-				setError(error);
+				alert(error);
 			} finally {
 				setLoading(false);
 			}
@@ -334,7 +339,7 @@ function livre(){
                       {livre.map((item) => (
                               <tr key={item.idLivre}>
 		<td>{item.idLivre}</td>
-		<td>{item.idAuteur.libele}</td>
+		<td>{item.idAuteur.nom}</td>
 		<td>{item.titre}</td>
 		<td>{item.idCategories.libele}</td>
 		<td>{item.description}</td>
@@ -376,9 +381,9 @@ function livre(){
 	</div>
 	<div className="mb-3"> 
 	 	<label className="form-label">Auteur</label> 
-	 	<select className="form-control" name="auteur">
+	 	<select className="form-control" name="idAuteur">
 		{idAuteur.map((elt) => (
-		<option value={elt.idCategories}>{elt.nom}</option>
+		<option value={elt.idAuteur}>{elt.nom}</option>
 	))}
 	
 	</select>
@@ -388,7 +393,7 @@ function livre(){
 	</div>
 	<div className="mb-3"> 
 	 	<label className="form-label">Categories</label> 
-	 	<select className="form-control" name="categories">
+	 	<select className="form-control" name="idCategories">
 		{idCategories.map((elt) => (
 		<option value={elt.idCategories}>{elt.libele}</option>
 	))}

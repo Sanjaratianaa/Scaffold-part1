@@ -101,14 +101,16 @@ function auteur(){
         });
   
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          //throw new Error('Network response was not ok');
         }
   
         handleClose();
+        setLoading(true);
         // If you want to reload the page after success
-        window.location.reload();
+        // window.location.reload();
       } catch (error) {
         console.log('Error:', error);
+        alert(error);
       }
   };
 
@@ -136,13 +138,14 @@ function auteur(){
         });
   
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          //throw new Error('Network response was not ok');
         }
         handleClose2();
+        setLoading(true);
         // If you want to reload the page after success
         // window.location.reload();
       } catch (error) {
-        console.error('Error:', error);
+        alert(error);
       }
   };
 
@@ -159,12 +162,14 @@ function auteur(){
         body: JSON.stringify(item)
       });
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        //throw new Error('Network response was not ok');
       }
+      setLoading(true);
       // If you want to reload the page after success
       // window.location.reload();
     } catch (error) {
-      console.error('Error:', error);
+      //console.error('Error:', error);
+      alert(error);
     }
   };
 
@@ -180,10 +185,6 @@ function auteur(){
 		setSelectedItem({ ...selectedItem, prenom: event.target.value });
 	};
 	
-	const handleInputDtnChange = (event) => {
-		setSelectedItem({ ...selectedItem, dtn: event.target.value });
-	};
-	
 	
 
 	useEffect(() => {
@@ -195,20 +196,20 @@ function auteur(){
 	} 
 	});
 					if (!response.ok) {
-						throw new Error('Network response was not ok');
+						//throw new Error('Network response was not ok');
 					};
 				const data = await response.json();
 	 const c = response.headers.get('X-Total-Count'); 
 	 			 setCount(c); 
 	 			setAuteur(data);
 			} catch (error) {
-				setError(error);
+				alert(error);
 			} finally {
 				setLoading(false);
 			}
 		};
 		getAuteur();
-	}, [currentPage]);
+	}, [currentPage, loading]);
 	
 
   return (
@@ -231,10 +232,6 @@ function auteur(){
 	 	<label className="form-label">Prenom</label> 
 	 	<input className="form-control" type="text" name="prenom" />
 	</div>
-	<div className="mb-3"> 
-	 	<label className="form-label">Dtn</label> 
-	 	<input className="form-control" type="Date" name="dtn" />
-	</div>
 	
                               <div className="mb-3">
                                 <IonButton color="success" type= "submit" >
@@ -256,7 +253,6 @@ function auteur(){
 			<th> Id Auteur </th>
 			<th> Nom </th>
 			<th> Prenom </th>
-			<th> Dtn </th>
 
                           <th></th>
                           <th></th>
@@ -273,7 +269,6 @@ function auteur(){
 		<td>{item.idAuteur}</td>
 		<td>{item.nom}</td>
 		<td>{item.prenom}</td>
-		<td>{item.dtn}</td>
 
                               <td>
                                   <IonButton color="danger  " key={item.idAuteur} onClick={() => handleDeleteClick(item)}>
@@ -317,10 +312,6 @@ function auteur(){
 	<div className="mb-3"> 
 	 	<label className="form-label">Prenom</label> 
 	 	<input className="form-control" type="text" name="prenom" onChange={handleInputPrenomChange} value={selectedItem ? selectedItem.prenom:''} />
-	</div>
-	<div className="mb-3"> 
-	 	<label className="form-label">Dtn</label> 
-	 	<input className="form-control" type="Date" name="dtn" onChange={handleInputDtnChange} value={selectedItem ? selectedItem.dtn:''} />
 	</div>
 	
                           <div className="mb-3">

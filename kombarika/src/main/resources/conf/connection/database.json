@@ -2,13 +2,13 @@
     "defaultConnection" : "DefaultConnection",
     "listConnection": {
         "DefaultConnection": {
-            "datasource":"jdbc:postgresql://localhost:5432/scaftest",
+            "datasource":"jdbc:postgresql://localhost:5432/testscaff",
             "username":"postgres",
             "password":"postgres",
             "databaseType":"POSTGRESQL"
         },
         "OtherConnection": {
-            "datasource":"jdbc:postgresql://localhost:5432/scaftest",
+            "datasource":"jdbc:postgresql://localhost:5432/testscaff",
             "username":"postgers",
             "password":"admin",
             "databaseType":"POSTGRESQL"

@@ -16,8 +16,6 @@ public class Auteur {
 	public string Nom { get; set; }
 	[Column("prenom")]
 	public string Prenom { get; set; }
-	[Column("dtn")]
-	public DateOnly Dtn { get; set; }
 
 
 

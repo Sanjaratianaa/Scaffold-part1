@@ -60,7 +60,7 @@ public class View {
             res += this.getViewProperties().getOptionUpdate()
                 .replace("#url#", url)
                 .replace("#path#", ObjectUtility.formatToCamelCase(set.getKey()))
-                .replace("#name#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(set.getValue())))
+                .replace("#name#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(set.getKey())))
                 .replace("#label#", ObjectUtility.formatToCamelCase(set.getValue()))
                 .replace("#id#", ObjectUtility.formatToCamelCase(id))                
                 .replace("#attribute#", ObjectUtility.formatToCamelCase(attribute))
@@ -81,13 +81,13 @@ public class View {
                     String o = this.getViewProperties().getOptionUpdate()
                             .replace("#url#", url)
                             .replace("#path#", ObjectUtility.formatToCamelCase(set.getKey()))
-                            .replace("#name#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(set.getValue())))
+                            .replace("#name#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(set.getKey())))
                             .replace("#label#", ObjectUtility.formatToCamelCase(set.getValue()))
-                            .replace("#id#", ObjectUtility.formatToCamelCase(id))                
+                            .replace("#id#", ObjectUtility.formatToCamelCase(set.getKey()))                
                             .replace("#attribute#", ObjectUtility.formatToCamelCase(id_s))
                             ;
                     res += this.getViewProperties().getSelectUpdate()
-                    .replace("#name#", ObjectUtility.formatToCamelCase(temp))
+                    .replace("#name#", ObjectUtility.formatToCamelCase(set.getKey()))
                     .replace("#id#", ObjectUtility.formatToCamelCase(set.getKey()))
                     .replace("#optionUpdate#", o)
                     .replace("#label#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(temp)));
@@ -108,7 +108,7 @@ public class View {
         }
         return Misc.tabulate(res);
     }
-
+    
     public String getHeaders(HashMap<String, String> columns){
         String res ="";
         String template = this.getViewProperties().getTableHeader();
@@ -119,14 +119,17 @@ public class View {
         return res;
     }
 
-    public String getTableValue(HashMap<String, String> columns, HashMap<String, String> foreignKeys, String attribute){
+    public String getTableValue(HashMap<String, String> columns, HashMap<String, String> foreignKeys, String attribute, HashMap<String, String> idsAttributes){
         String res ="";
         String template = this.getViewProperties().getTableValue();
+        System.out.println("hohohoh ==> " + foreignKeys);
         for (Map.Entry<String, String> set : columns.entrySet()) {
             if(foreignKeys.get(set.getKey()) != null){
+                String a = ObjectUtility.formatToCamelCase(set.getKey());
                 res += "\t\t" + template
+                
                 // .replace("#values#", ObjectUtility.formatToCamelCase(foreignKeys.get(set.getKey())) + "." + ObjectUtility.formatToCamelCase(attribute)) + "\n";                
-                .replace("#values#", ObjectUtility.formatToCamelCase(set.getKey()) + "." + ObjectUtility.formatToCamelCase(attribute)) + "\n";                
+                .replace("#values#", ObjectUtility.formatToCamelCase(set.getKey()) + "." + ObjectUtility.formatToCamelCase(idsAttributes.get(a))) + "\n";                
             }else{
                 res += "\t\t" + template
                 .replace("#values#", ObjectUtility.formatToCamelCase(set.getKey())) + "\n";
@@ -179,7 +182,7 @@ public class View {
             .replace("#entity#", ObjectUtility.formatToCamelCase(table))
             .replace("#counts#", counts)
             .replace("#count#", "+currentPage")
-            .replace("#dependencies#" , "currentPage")
+            .replace("#dependencies#" , "currentPage, loading")
             .replace("#Entity#", ObjectUtility.capitalize(table));
             
         for (Map.Entry<String, String> set : columns.entrySet()) {
@@ -257,7 +260,7 @@ public class View {
         .replace("#getValues#", getFetcher(columns, foreignKeys, table))
         .replace("#values#", getValues(columns, foreignKeys, table))
         .replace("#entity#", ObjectUtility.formatToCamelCase(table))
-        .replace("#tableValue#", getTableValue(columns, foreignKeys, attribute))
+        .replace("#tableValue#", getTableValue(columns, foreignKeys, attribute, idAndAttribute))
         .replace("#url#", url)
         .replace("#id#", ObjectUtility.formatToCamelCase(primaryKeys.get(0)))
         .replace("#path#", path)

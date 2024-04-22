@@ -51,7 +51,7 @@
             "handleSelectChange":"const handleSelect#Name#Change = (event) => {\n\tsetSelectedItem({ ...selectedItem, #name#: event.target.value });\n};\n",
             "values":"const [#entity#, set#Entity#] = useState([]);\n",
             "tableValue":"<td>{item.#values#}</td>",
-            "fetch":"useEffect(() => {\n\tconst get#Entity# = async () => {\n\t\ttry {\n\t\t\tconst response = await fetch(url + '[#entity#]/'#count# , {\n headers: {\n \"Authorization\" : \"Bearer \" + sessionStorage.getItem('token') \n} \n});\n\t\t\t\tif (!response.ok) {\n\t\t\t\t\tthrow new Error('Network response was not ok');\n\t\t\t\t};\n\t\t\tconst data = await response.json();#counts# \n \t\t\tset#Entity#(data);\n\t\t} catch (error) {\n\t\t\tsetError(error);\n\t\t} finally {\n\t\t\tsetLoading(false);\n\t\t}\n\t};\n\tget#Entity#();\n}, [#dependencies#]);\n",
+            "fetch":"useEffect(() => {\n\tconst get#Entity# = async () => {\n\t\ttry {\n\t\t\tconst response = await fetch(url + '[#entity#]/'#count# , {\n headers: {\n \"Authorization\" : \"Bearer \" + sessionStorage.getItem('token') \n} \n});\n\t\t\t\tif (!response.ok) {\n\t\t\t\t\t//throw new Error('Network response was not ok');\n\t\t\t\t};\n\t\t\tconst data = await response.json();#counts# \n \t\t\tset#Entity#(data);\n\t\t} catch (error) {\n\t\t\talert(error);\n\t\t} finally {\n\t\t\tsetLoading(false);\n\t\t}\n\t};\n\tget#Entity#();\n}, [#dependencies#]);\n",
             "handleSelectItem":"const handleSelectItem = (itemKey) => {\n\thandleShow2();\n\tconst itemDetails = district.find(item => item.id === itemKey);\n\tsetSelectedItem(itemDetails);\n};\n",
             "extension":"tsx",
             "listMapping" : {

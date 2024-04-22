@@ -28,6 +28,8 @@ public class AuteurController : Controller {
 	[HttpPut]
 	public ActionResult<Auteur> update([FromBody] Auteur auteur){
 	 	var temp = auteur;
+		  
+		 _context.Auteur.Update(auteur); 
 		_context.SaveChanges();
 		return Ok();
 	}
