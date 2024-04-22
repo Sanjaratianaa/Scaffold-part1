@@ -7,7 +7,8 @@ create TABLE auteur(
 
     id_auteur serial primary key,
     nom varchar(50) not null,
-    prenom varchar(50) not null
+    prenom varchar(50) not null,
+    date_naissance DATE not null
 );
 
 CREATE table categories(
